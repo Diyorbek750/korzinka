@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+   <div class="container">
+    <div class=" w-100 mt-4">
+        <h4 class="d-block" >Xaridor : {{request.user}}</h4>
+        <div class="d-flex flex-wrap justify-content-between">
+            {% for i in saveds %}
+            <div class="card border border-0 shadow-sm d-inline-block m-1 mt-3" style="width: 15.8rem;" >
+                {% if i.product.image %}
+                <img height="240" class=" card-img-top" src="{{i.product.image.url}}" alt="">
+                {% else %}
+                <img height="240" class=" card-img-top" src="images/14pro2.jfif" alt="">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="align-center card-title" style="text-align: center;"> {{i.product.name}}</h5>
+                </div>
+            </div>  
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

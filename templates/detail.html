@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-6">
+            <div class="card border border-0 shadow-sm d-inline-block m-1 mt-3" style="width: 18.5rem;">
+                <img src="{{product.image.url}}" height="220" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h6 class="align-center card-title" style="text-align: center;">Standart {{product.weight}} og'irlikka ega</h6>
+                  <h6 class="align-center card-title" style="text-align: center;">Kilosi:{{product.price}} so'm</h6>
+                  <div class="buttons d-flex flex-wrap justify-content-between"></div>
+                  <button class="increase-quantity">+</button>
+                  <span class="quantity-indicator">
+                    <input type="number" class="quantity-input" min="0" value="0">
+                  </span>
+                  <button class="decrease-quantity float-end">-</button>
+                  <span class="weight-label">Xarid uchun umumiy massa:</span>
+                  <span class="weight-indicator">0</span>
+                  <span class="price-label">Umumiy summ:</span>
+                  <span class="price-indicator">0</span>
+                  
+                  <script>
+                    const increaseButton = document.querySelector('.increase-quantity');
+                    const decreaseButton = document.querySelector('.decrease-quantity');
+                    const quantityInput = document.querySelector('.quantity-input');
+                    const weightIndicator = document.querySelector('.weight-indicator');
+                    const weightLabel = document.querySelector('.weight-label');
+                    const priceIndicator = document.querySelector('.price-indicator');
+                    const priceLabel = document.querySelector('.price-label');
+                  
+                    increaseButton.addEventListener('click', () => {
+                      let quantity = parseInt(quantityInput.value);
+                      quantity += 1;
+                      quantityInput.value = quantity;
+                      calculateWeightAndPrice(quantity);
+                    });
+                  
+                    decreaseButton.addEventListener('click', () => {
+                      let quantity = parseInt(quantityInput.value);
+                      if (quantity > 0) {
+                        quantity -= 1;
+                        quantityInput.value = quantity;
+                        calculateWeightAndPrice(quantity);
+                      }
+                    });
+                  
+                    quantityInput.addEventListener('input', () => {
+                      const quantity = parseInt(quantityInput.value);
+                      calculateWeightAndPrice(quantity);
+                    });
+                  
+                    function calculateTotalPrice(weight, price) {
+                      const totalPrice = weight * price;
+                      return totalPrice.toFixed(2);
+                    }
+                  
+                    function calculateWeightAndPrice(quantity) {
+                      const baseWeightPerUnit = parseFloat('{{ product.weight }}');
+                      const weight = quantity * baseWeightPerUnit;
+                      weightIndicator.textContent = weight.toFixed(2);
+                  
+                      const pricePerUnit = parseFloat('{{ product.price }}');
+                      const totalPrice = calculateTotalPrice(weight, pricePerUnit);
+                      priceIndicator.textContent = totalPrice;
+                  
+                      weightLabel.textContent('hr') = "Xarid uchun umumiy massa:";
+                      priceLabel.textContent = "Umumiy summa:";
+                    }
+                  
+                    calculateWeightAndPrice(0); 
+                  </script>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{% endblock content %}

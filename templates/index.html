@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    {% for product in products %}
+    <div class="card border border-0 shadow-sm d-inline-block m-1 mt-3" style="width: 16.5rem;">
+        <img src="{{product.image.url}}" height="200" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="align-center card-title" style="text-align: center;"> {{product.name}}</h5>
+          <h6 class="align-center card-title" style="text-align: center;">Standart {{product.weight}} og'irlikka ega</h6>
+          <h6 class="align-center card-title" style="text-align: center;">Kilosi:{{product.price}} so'm</h6>
+          <div class="buttons d-flex flex-wrap justify-content-between"></div>
+          <i class="bi bi-bookmark-fill"></i>
+          <a href="{% url 'addremovesaved' product.pk%}" class="btn btn-outline-primary">Saqlash</a>
+          <a href="{% url 'product_detail' product.pk %}" class="btn btn-outline-primary float-end" >Xarid qilish</a>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+{% endblock content %}
